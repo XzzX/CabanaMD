@@ -386,6 +386,20 @@ void CbnMD<t_System, t_Neighbor>::run()
 
     double time = timer.seconds();
 
+    std::ofstream fout("performance.txt", std::ofstream::app);
+    fout << std::fixed << std::setprecision(10);
+    fout << CabanaMD_LAYOUT << " "
+         << CabanaMD_VECTORLENGTH << " "
+         << comm->num_processes() << " "
+         << system->N << " "
+         << time << " "
+         << force_time << " "
+         << neigh_time << " "
+         << comm_time << " "
+         << integrate_time << " "
+         << other_time << std::endl;
+    fout.close();
+
     // Final output and timings
     if ( !_print_lammps )
     {
