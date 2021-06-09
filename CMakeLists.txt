@@ -35,7 +35,16 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 ##---------------------------------------------------------------------------##
 # Set up main options (inherit from Kokkos and Cabana CMake)
 ##---------------------------------------------------------------------------##
-find_package(Cabana REQUIRED)
+include(FetchContent)
+
+set(Cabana_ENABLE_MPI ON)
+set(Cabana_ENABLE_CAJITA ON)
+FetchContent_Declare(
+  Cabana
+  GIT_REPOSITORY https://github.com/ECP-copa/Cabana.git
+)
+FetchContent_MakeAvailable(Cabana)
+
 
 if( NOT Cabana_ENABLE_MPI )
   message( FATAL_ERROR "Cabana must be compiled with MPI" )
